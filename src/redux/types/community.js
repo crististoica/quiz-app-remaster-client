@@ -1,0 +1,2 @@
+export const GET_TOPICS = "GET_TOPICS";
+export const COMMUNITY_ERROR = "COMMUNITY_ERROR";

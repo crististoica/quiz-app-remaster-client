@@ -1,24 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { Container, Paper } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+
+import Routes from "./Routes";
+import NavBar from "./components/NavBar";
+
+import { checkToken } from "redux/actions/auth";
 
 function App() {
+  const darkModePreference = localStorage.getItem("darkMode");
+  const dispatch = useDispatch();
+  const [darkMode, setDarkMode] = useState(
+    darkModePreference ? darkModePreference === "true" : false
+  );
+
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+      primary: {
+        light: "#757ce8",
+        main: "#E64A19",
+        dark: "#5B6057", // also hover
+        contrastText: "#ffffff",
+      },
+      secondary: {
+        light: "#ff7961",
+        main: "#D81E5B",
+        contrastText: "#ffffff",
+      },
+      contrastThreshold: 3,
+      tonalOffset: 0.2,
+    },
+  });
+
+  useEffect(() => {
+    dispatch(checkToken());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper className="main" square>
+        <NavBar setDarkMode={setDarkMode} darkMode={darkMode} />
+        <Container maxWidth="lg">
+          <Routes setDarkMode={setDarkMode} darkMode={darkMode} />
+        </Container>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
