@@ -9,14 +9,20 @@ import FeedbackMsg from "../Helpers/FeedbackMsg";
 
 const NavBar = ({ setDarkMode, darkMode }) => {
   const classes = useStyles();
-  const userData = useSelector((state) => state.auth);
+  const { auth, community } = useSelector((state) => state);
 
   return (
     <>
-      {userData.message.content && (
+      {auth.message.content && (
         <FeedbackMsg
-          message={userData.message.content}
-          severity={userData.message.type}
+          message={auth.message.content}
+          severity={auth.message.type}
+        />
+      )}
+      {community.message.content && (
+        <FeedbackMsg
+          message={community.message.content}
+          severity={community.message.type}
         />
       )}
       <Grow in>
@@ -27,10 +33,10 @@ const NavBar = ({ setDarkMode, darkMode }) => {
               darkMode={darkMode}
               classes={classes}
             />
-            {userData.isLoggedIn && (
+            {auth.isLoggedIn && (
               <>
                 <Links classes={classes} />
-                <Profile classes={classes} userData={userData} />
+                <Profile classes={classes} userData={auth.data} />
               </>
             )}
           </Grid>

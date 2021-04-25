@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   cardImage: {
-    width: 100,
-    height: 100,
+    width: 60,
+    height: 60,
     [theme.breakpoints.down("xs")]: {
       width: 50,
       height: 50,

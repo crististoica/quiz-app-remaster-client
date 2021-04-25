@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -9,12 +9,13 @@ import Loading from "Routes/Loading";
 import useStyles from "../styles";
 
 const QuizResult = ({ historyResult }) => {
+  const [communityQuestion, setCommunityQuestion] = useState({});
   const quiz = useSelector((state) => historyResult || state.quiz);
   const history = useHistory();
   const classes = useStyles();
-  const entries = quiz.result.entries; // { BD: { ... }, POO: { ... } ....}
   let questionNumber = 1;
 
+  console.log(communityQuestion);
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -26,7 +27,7 @@ const QuizResult = ({ historyResult }) => {
   }, [history]);
 
   useEffect(() => {
-    if (Object.keys(quiz.result.entries).length === 0 && !quiz.isLoading) {
+    if (quiz.result.data.length === 0 && !quiz.isLoading) {
       history.push("/dashboard");
     }
   }, [quiz, history]);
@@ -46,20 +47,18 @@ const QuizResult = ({ historyResult }) => {
         <ResultInfo infos={quiz.result} classes={classes} />
       </Grid>
 
-      {Object.keys(entries).map((key) => {
-        return entries[key].data.map((entry) => {
-          return (
-            <Grid item xs={12} key={entry.questionNumber + entry.index}>
-              <ResultQuestion
-                classes={classes}
-                questionNumber={questionNumber++}
-                color={quiz.currentQuizSettings.color}
-                data={entry}
-                entryKey={key}
-              />
-            </Grid>
-          );
-        });
+      {quiz.result.data.map((entry) => {
+        return (
+          <Grid item xs={12} key={entry._id}>
+            <ResultQuestion
+              classes={classes}
+              questionNumber={questionNumber++}
+              color={quiz.currentQuizSettings.color}
+              data={entry}
+              setCommunityQuestion={setCommunityQuestion}
+            />
+          </Grid>
+        );
       })}
     </Grid>
   );

@@ -7,15 +7,22 @@ import {
   Typography,
   Paper,
   Divider,
-  Tooltip,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+import LabelIcon from "@material-ui/icons/Label";
 
-const ResultQuestion = ({ classes, questionNumber, color, data, entryKey }) => {
+const ResultQuestion = ({
+  classes,
+  questionNumber,
+  color,
+  data,
+  setCommunityQuestion,
+}) => {
   const handleCommunityPost = () => {
-    console.log(entryKey);
+    console.log("POSTING ON FORUM...");
+    setCommunityQuestion(data);
   };
 
   return (
@@ -29,15 +36,20 @@ const ResultQuestion = ({ classes, questionNumber, color, data, entryKey }) => {
           <span className={classes.questionIndex} style={{ color: color }}>
             {`${questionNumber} )`}
           </span>
-          {data.question}
+          {data.mainText}
         </Typography>
         <div className={classes.resultActions} style={{ color: color }}>
-          <Tooltip title="Original Question Number (from PDF)">
-            <div className="icon-container md-4" style={{ fontSize: 16 }}>
-              <PictureAsPdfIcon />
-              {`${entryKey} - ${data.questionNumber}`}
-            </div>
-          </Tooltip>
+          {data.questionNumber && (
+            <Tooltip title="Original Question Number.">
+              <div
+                className={classes.quizTypeContainer}
+                style={{ color: color }}
+              >
+                <LabelIcon />
+                <p>{data.questionNumber}</p>
+              </div>
+            </Tooltip>
+          )}
           <IconButton onClick={handleCommunityPost}>
             <PostAddIcon color="secondary" />
           </IconButton>

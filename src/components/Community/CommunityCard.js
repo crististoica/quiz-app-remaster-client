@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import LockIcon from "@material-ui/icons/Lock";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 
 import useStyles from "./styles";
 
@@ -10,15 +11,25 @@ const CommunityCard = ({
   title,
   color,
   imgSrc,
-  topicUrl,
+  slug,
+  topicId,
   totalPosts,
   isLocked,
+  isForQuiz,
 }) => {
   const classes = useStyles();
 
-  if (topicUrl) {
+  const handlePosts = () => {
+    console.log(topicId);
+  };
+
+  if (slug) {
     return (
-      <Link to={`community/${topicUrl}`} className={classes.communityTopicLink}>
+      <Link
+        to={{ pathname: `community/${slug}`, state: { topicId } }}
+        className={classes.communityTopicLink}
+        onClick={handlePosts}
+      >
         <Paper
           className={classes.communityCard}
           component={CardActionArea}
@@ -34,12 +45,11 @@ const CommunityCard = ({
               <Typography variant="h6" noWrap className={classes.topicTitle}>
                 {title}
                 {isLocked && <LockIcon />}
+                {isForQuiz && <FormatListBulletedIcon />}
               </Typography>
             </div>
             <div>
-              <Typography variant="body2">
-                Total Posts: {totalPosts || 0}
-              </Typography>
+              <Typography variant="body2">Posts: {totalPosts || 0}</Typography>
             </div>
           </div>
           <div className={classes.communityCardRight}>

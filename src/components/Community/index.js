@@ -12,7 +12,9 @@ const Community = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTopics());
+    if (data.length === 0) {
+      dispatch(getTopics());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -26,9 +28,11 @@ const Community = () => {
                 title={topic.name}
                 color={topic.color}
                 imgSrc={`${process.env.REACT_APP_API_URL}/${topic.img}`}
-                topicUrl={topic.url}
+                slug={topic.slug}
+                topicId={topic._id}
                 totalPosts={topic.posts.length}
                 isLocked={topic.isLocked}
+                isForQuiz={topic.isForQuiz}
               />
             </Grid>
           );

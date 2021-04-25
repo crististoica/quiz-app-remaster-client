@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   questionText: {
+    width: "90%",
     fontSize: "1.3em",
+    fontWeight: "bold",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   questionIndex: {
     marginRight: theme.spacing(2),
@@ -108,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   resultActions: {
-    width: 140,
+    width: 100,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

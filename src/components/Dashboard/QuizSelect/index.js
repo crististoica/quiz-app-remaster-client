@@ -16,7 +16,8 @@ const QuizSelect = () => {
               imgSrc={`${process.env.REACT_APP_API_URL}/${quiz.img}`}
               color={quiz.color}
               num={quiz.numOfQuestions}
-              path
+              quizId={quiz._id}
+              slug={quiz.slug}
             />
           </Grid>
         );

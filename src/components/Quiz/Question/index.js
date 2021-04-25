@@ -11,28 +11,21 @@ import {
 } from "@material-ui/core";
 
 const Question = ({
-  data,
+  question,
   classes,
-  color,
   questionNumber,
-  index,
-  dataKey,
   setUserAnswers,
   userAnswers,
+  index,
+  color,
 }) => {
   const [checked, setChecked] = useState(-1);
-
   const handleToggle = (optionIndex, optionId) => {
     setChecked(optionIndex);
-    const temp = [...userAnswers[dataKey]];
-    temp[index].userAnswer = optionId;
-    setUserAnswers((prevProgress) => ({
-      ...prevProgress,
-      [dataKey]: [...temp],
-    }));
+    userAnswers[index].userAnswer = optionId;
+    setUserAnswers([...userAnswers]);
   };
 
-  console.log(color);
   return (
     <List
       className={classes.root}
@@ -44,11 +37,11 @@ const Question = ({
           <span className={classes.questionIndex} style={{ color: color }}>
             {`${questionNumber} )`}
           </span>
-          {data.question}
+          {question.mainText}
         </Typography>
       </div>
       <Divider />
-      {data.options.map((option, optionIndex) => {
+      {question.options.map((option, optionIndex) => {
         const labelId = `checkbox-list-label-${option._id}`;
 
         return (

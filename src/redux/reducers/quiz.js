@@ -2,37 +2,23 @@ import * as types from "../types/quiz";
 
 const initialState = {
   dashboardCards: [],
-  data: [],
+  data: {
+    questions: [],
+  },
   message: {
     content: "",
     type: "",
   },
-  quizImages: {
-    Java: "/java_img.png",
-    Networks: "/networks_img.png",
-    Databases: "/db_img.png",
-    "Real Test": "/real_test.png",
-    News: "/news.png",
-  },
-  quizColors: {
-    Java: "#FCAB10",
-    Networks: "#2B9EB3",
-    Databases: "#ED6A5A",
-    "Real Test": "#3BB273",
-    News: "#35A7FF",
-  },
   currentQuizSettings: {
     color: "",
-    key: "",
     type: "",
     quizImg: "",
   },
   result: {
-    entries: {},
+    data: [],
     time: {},
     date: 0,
     color: "",
-    type: "",
   },
   time: {},
   isLoading: false,
@@ -47,7 +33,6 @@ const quizReducer = (state = initialState, action) => {
           color: action.payload.currentQuizColor,
           type: action.payload.quizType,
           quizImg: action.payload.quizImg,
-          key: action.payload.key,
         },
         progress: action.payload.progress,
         data: action.payload.quiz,
@@ -79,6 +64,13 @@ const quizReducer = (state = initialState, action) => {
         data: initialState.data,
         result: initialState.result,
         currentQuizSettings: initialState.currentQuizSettings,
+        message: initialState.message,
+      };
+    case types.QUIZ_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        message: action.payload.message,
       };
     default:
       return initialState;

@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: theme.spacing(4),
   },
+  notFound: {
+    marginTop: theme.spacing(2),
+    color: theme.palette.grey[500],
+  },
 }));
 
 export default useStyles;

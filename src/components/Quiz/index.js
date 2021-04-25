@@ -4,7 +4,6 @@ import { Button, Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 import Question from "./Question";
-import Placeholder from "./Question/Placeholder";
 import QuizInfo from "./QuizInfo";
 
 import { verifyQuiz } from "redux/actions/quiz";
@@ -12,7 +11,7 @@ import { verifyQuiz } from "redux/actions/quiz";
 import useStyles from "./styles";
 
 const Quiz = () => {
-  const [userAnswers, setUserAnswers] = useState({});
+  const [userAnswers, setUserAnswers] = useState([]);
   const [time, setTime] = useState({
     hours: "0",
     minutes: "00",
@@ -32,35 +31,24 @@ const Quiz = () => {
       date: Date.now(),
       color: quiz.currentQuizSettings.color,
       type: quiz.currentQuizSettings.type,
+      quizId: quiz.data._id,
     };
     dispatch(verifyQuiz(progress, time));
-    const key = quiz.currentQuizSettings.key.split(" ").join("-");
-    history.push(`/quiz/${key}/result`);
+    history.push(`/quiz/${quiz.data.slug}/result`);
   };
 
   useEffect(() => {
-    /*
-      progres: {
-        "POO": [{ index: Number, answer: "" } .... ],
-        "BD": [{ index: Number, answer: ""} .... ],
-        ...........
-      }
-    */
-    setUserAnswers(
-      Object.assign(
-        {},
-        ...Object.keys(quiz.data).map((key) => ({
-          [key]: quiz.data[key].map((entry) => ({
-            index: entry.index,
-            userAnswer: "",
-          })),
-        }))
-      )
-    );
-  }, [quiz.data]);
+    setUserAnswers([
+      ...quiz.data.questions.map((question) => ({
+        questionIndex: question.index,
+        questionId: question._id,
+        userAnswer: "",
+      })),
+    ]);
+  }, [quiz.data.questions]);
 
   useEffect(() => {
-    if (quiz.data.length === 0 && !quiz.isLoading) {
+    if (quiz.data.questions.length === 0 && !quiz.isLoading) {
       history.push("/dashboard");
     }
   }, [quiz.data, history, quiz.isLoading]);
@@ -87,27 +75,20 @@ const Quiz = () => {
       className={classes.quizContainer}
     >
       <QuizInfo quiz={quiz} classes={classes} time={time} setTime={setTime} />
-      {Object.keys(quiz.data).map((key) => {
-        return quiz.data[key].map((question, index) => {
-          return quiz.isLoading ? (
-            <Grid key={question.questionNumber} item xs={12}>
-              <Placeholder />
-            </Grid>
-          ) : (
-            <Grid key={question.questionNumber} item xs={12}>
-              <Question
-                data={question}
-                classes={classes}
-                color={quiz.currentQuizSettings.color}
-                questionNumber={questionNumber++}
-                index={index}
-                dataKey={key}
-                setUserAnswers={setUserAnswers}
-                userAnswers={userAnswers}
-              />
-            </Grid>
-          );
-        });
+      {quiz.data.questions.map((question, index) => {
+        return (
+          <Grid item xs={12} key={question._id}>
+            <Question
+              question={question}
+              classes={classes}
+              color={quiz.currentQuizSettings.color}
+              questionNumber={questionNumber++}
+              setUserAnswers={setUserAnswers}
+              userAnswers={userAnswers}
+              index={index}
+            />
+          </Grid>
+        );
       })}
       <Grid item md={6} xs={12}>
         <Button

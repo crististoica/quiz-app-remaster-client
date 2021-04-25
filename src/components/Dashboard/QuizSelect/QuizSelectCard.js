@@ -6,27 +6,24 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { getQuiz } from "../../../redux/actions/quiz";
 import useStyles from "../styles";
 
-const QuizSelectCard = ({ title, imgSrc, color, num, path }) => {
-  const key = title.toLowerCase().split(" ").join("-");
+const QuizSelectCard = ({ title, imgSrc, color, num, quizId, slug }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const handleQuiz = () =>
     dispatch(
-      getQuiz(
-        {
-          key: key,
-          quizType: title,
-          quizImg: imgSrc,
-        },
-        color
-      )
+      getQuiz({
+        quizId: quizId,
+        quizType: title,
+        quizImg: imgSrc,
+        color: color,
+      })
     );
 
-  if (path) {
+  if (slug) {
     return (
       <Paper>
-        <Link to={`/quiz/${path}`} className={classes.cardLink}>
+        <Link to={`/quiz/${slug}`} className={classes.cardLink}>
           <CardActionArea
             className={classes.quizSelectCard}
             style={{ color: color }}
@@ -34,7 +31,7 @@ const QuizSelectCard = ({ title, imgSrc, color, num, path }) => {
           >
             <img className={classes.cardImage} src={imgSrc} alt={title} />
             <div className={classes.controls}>
-              <Typography variant="h4">{title}</Typography>
+              <Typography variant="h5">{title}</Typography>
               <Typography variant="body2">{num} questions</Typography>
             </div>
 

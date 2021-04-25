@@ -3,7 +3,6 @@ import { Grid, Paper, Typography } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 
 const QuizInfo = ({ quiz, classes, time, setTime }) => {
-  const quizType = quiz.currentQuizSettings.type;
   const quizImg = quiz.currentQuizSettings.quizImg;
 
   useEffect(() => {

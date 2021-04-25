@@ -4,7 +4,10 @@ const initialState = {
   data: {},
   isLoggedIn: false,
   isLoading: true,
-  message: {},
+  message: {
+    content: "",
+    type: "",
+  },
 };
 
 const authReducer = (state = initialState, action) => {
@@ -12,7 +15,7 @@ const authReducer = (state = initialState, action) => {
     case types.CLEAR_USER_MSG:
       return {
         ...state,
-        message: {},
+        message: initialState.message,
       };
     case types.USER_ERROR:
       return {

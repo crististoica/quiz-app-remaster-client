@@ -21,14 +21,17 @@ function App() {
       type: darkMode ? "dark" : "light",
       primary: {
         light: "#757ce8",
-        main: "#E64A19",
-        dark: "#5B6057", // also hover
+        main: "#448aff",
+        dark: "#5B6057",
         contrastText: "#ffffff",
       },
       secondary: {
         light: "#ff7961",
-        main: "#D81E5B",
+        main: "#3DA35D",
         contrastText: "#ffffff",
+      },
+      grey: {
+        800: "#ff4242",
       },
       contrastThreshold: 3,
       tonalOffset: 0.2,
