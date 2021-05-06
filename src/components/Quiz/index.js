@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import Question from "./Question";
 import QuizInfo from "./QuizInfo";
+import Loading from "Routes/Loading";
 
 import { verifyQuiz } from "redux/actions/quiz";
 
@@ -64,7 +65,7 @@ const Quiz = () => {
   }, []);
 
   if (quiz.isLoading) {
-    return <h1>LOADING</h1>;
+    return <Loading />;
   }
 
   return (

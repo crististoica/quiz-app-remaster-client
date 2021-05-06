@@ -19,16 +19,11 @@ const CommunityCard = ({
 }) => {
   const classes = useStyles();
 
-  const handlePosts = () => {
-    console.log(topicId);
-  };
-
   if (slug) {
     return (
       <Link
         to={{ pathname: `community/${slug}`, state: { topicId } }}
         className={classes.communityTopicLink}
-        onClick={handlePosts}
       >
         <Paper
           className={classes.communityCard}

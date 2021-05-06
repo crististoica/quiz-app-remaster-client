@@ -11,7 +11,8 @@ export const getTopics = () => async (dispatch) => {
       type: types.COMMUNITY_ERROR,
       payload: {
         message: {
-          content: error.response?.data.message || "Server must be off.",
+          content:
+            error.response?.data.message.content || "Server must be off.",
           type: "error",
         },
       },
@@ -40,7 +41,8 @@ export const getTopic = (url, currentTopic) => async (dispatch) => {
       type: types.COMMUNITY_ERROR,
       payload: {
         message: {
-          content: error.response?.data.message || "Server must be off.",
+          content:
+            error.response?.data.message.content || "Server must be off.",
           type: "error",
         },
       },
@@ -69,7 +71,37 @@ export const createNormalPost = (postInfos) => async (dispatch) => {
       type: types.COMMUNITY_ERROR,
       payload: {
         message: {
-          content: error.response?.data.message || "Server must be off.",
+          content:
+            error.response?.data.message.content || "Server must be off.",
+          type: "error",
+        },
+      },
+    });
+  }
+};
+
+export const createQuizPost = (postInfos) => async (dispatch) => {
+  try {
+    dispatch({ type: types.CLEAR_COMMUNITY_MSG });
+    const { data } = await api.createQuizPost(postInfos);
+
+    dispatch({
+      type: types.CREATE_QUIZ_POST,
+      payload: {
+        topic: data.topic,
+        message: {
+          content: data.message,
+          type: "success",
+        },
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: types.COMMUNITY_ERROR,
+      payload: {
+        message: {
+          content:
+            error.response?.data.message.content || "Server must be off.",
           type: "error",
         },
       },
@@ -83,7 +115,10 @@ export const getOnePost = (topicSlug, postSlug) => async (dispatch) => {
 
     const { data } = await api.getOnePost(topicSlug, postSlug);
 
-    dispatch({ type: types.GET_ONE_POST, payload: { post: data.post } });
+    dispatch({
+      type: types.GET_ONE_POST,
+      payload: { post: data.post, topic: data.topic },
+    });
 
     dispatch({ type: types.COMMUNITY_LOAD_DONE });
   } catch (error) {
@@ -91,7 +126,8 @@ export const getOnePost = (topicSlug, postSlug) => async (dispatch) => {
       type: types.COMMUNITY_ERROR,
       payload: {
         message: {
-          content: error.response?.data.message || "Server must be off.",
+          content:
+            error.response?.data.message.content || "Server must be off.",
           type: "error",
         },
       },
@@ -110,18 +146,19 @@ export const createReply = (replyInfos, slug) => async (dispatch) => {
       payload: {
         reply: data.reply,
         message: {
-          content: data.message,
+          content: data.message.content,
           type: "success",
         },
       },
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
         message: {
-          content: error.response?.data.message || "Server must be off.",
+          content:
+            error.response?.data.message.content || "Server must be off.",
           type: "error",
         },
       },

@@ -15,7 +15,9 @@ const Post = () => {
   const { topic, post } = useParams();
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { currentPost, isLoading } = useSelector((state) => state.community);
+  const { currentPost, isLoading, currentTopic } = useSelector(
+    (state) => state.community
+  );
 
   useEffect(() => {
     dispatch(getOnePost(topic, post));
@@ -42,8 +44,7 @@ const Post = () => {
           <PostHead
             classes={classes}
             data={currentPost}
-            color={currentPost.color}
-            isPost
+            color={currentTopic.color}
           />
         </Grid>
         <Grid item xs={12}>
@@ -63,10 +64,10 @@ const Post = () => {
         {currentPost.replies.map((reply) => {
           return (
             <Grid item xs={12} key={reply._id}>
-              <PostHead
+              <Reply
                 classes={classes}
                 data={reply}
-                color={currentPost.color}
+                color={currentTopic.color}
               />
             </Grid>
           );

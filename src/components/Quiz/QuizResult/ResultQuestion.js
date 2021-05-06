@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -12,24 +14,30 @@ import {
 } from "@material-ui/core";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import LabelIcon from "@material-ui/icons/Label";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import useStyles from "../styles";
 
 const ResultQuestion = ({
-  classes,
   questionNumber,
   color,
   data,
-  setCommunityQuestion,
+  handleCommunityPost,
+  isForCommunityPost,
+  isLocked,
 }) => {
-  const handleCommunityPost = () => {
-    console.log("POSTING ON FORUM...");
-    setCommunityQuestion(data);
-  };
+  const { currentTopic } = useSelector((state) => state.community);
+  const { quizType } = useParams();
+  const post = currentTopic.posts.find((p) => p.questionId === data._id);
+  const classes = useStyles();
+  const elev = isForCommunityPost ? 0 : 1;
 
   return (
     <List
       className={classes.root}
       component={Paper}
       style={{ borderTop: `2px solid ${color}` }}
+      elevation={elev}
     >
       <div className={classes.questionTextContainer}>
         <Typography variant="body1" className={classes.questionText}>
@@ -38,22 +46,40 @@ const ResultQuestion = ({
           </span>
           {data.mainText}
         </Typography>
-        <div className={classes.resultActions} style={{ color: color }}>
-          {data.questionNumber && (
-            <Tooltip title="Original Question Number.">
-              <div
-                className={classes.quizTypeContainer}
-                style={{ color: color }}
-              >
-                <LabelIcon />
-                <p>{data.questionNumber}</p>
-              </div>
-            </Tooltip>
-          )}
-          <IconButton onClick={handleCommunityPost}>
-            <PostAddIcon color="secondary" />
-          </IconButton>
-        </div>
+        {!isForCommunityPost && (
+          <div className={classes.resultActions} style={{ color: color }}>
+            {data.questionNumber && (
+              <Tooltip title="Original Question Number.">
+                <div
+                  className={classes.quizTypeContainer}
+                  style={{ color: color }}
+                >
+                  <LabelIcon />
+                  <p>{data.questionNumber}</p>
+                </div>
+              </Tooltip>
+            )}
+            {!isLocked && !post && (
+              <Tooltip title="Create Community Post">
+                <IconButton onClick={() => handleCommunityPost(data)}>
+                  <PostAddIcon style={{ color: color }} />
+                </IconButton>
+              </Tooltip>
+            )}
+            {post && (
+              <Tooltip title="Open new tab and go to community post.">
+                <Link
+                  target="_blank"
+                  to={`/community/${quizType}/${post.slug}`}
+                >
+                  <IconButton>
+                    <ExitToAppIcon style={{ color: color }} />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            )}
+          </div>
+        )}
       </div>
       <Divider />
       {data.options.map((option) => {
@@ -82,11 +108,11 @@ const ResultQuestion = ({
             key={option._id}
             role={undefined}
             dense
-            button
             className={classes[listItemClass]}
           >
             <ListItemIcon>
               <Checkbox
+                disabled
                 edge="start"
                 checked={
                   option._id === data.correctAnswer ||

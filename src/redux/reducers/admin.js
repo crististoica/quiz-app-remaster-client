@@ -98,7 +98,7 @@ const adminReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     default:
-      return initialState;
+      return state;
   }
 };
 

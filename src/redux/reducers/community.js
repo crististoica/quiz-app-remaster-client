@@ -56,8 +56,13 @@ const communityReducer = (state = initialState, action) => {
         currentTopic: action.payload.topic,
         message: action.payload.message,
       };
+    case types.CREATE_QUIZ_POST:
+      return {
+        ...state,
+        currentTopic: action.payload.topic,
+        message: action.payload.message,
+      };
     case types.CREATE_REPLY:
-      console.log(action.payload);
       state.currentPost.replies.push(action.payload.reply);
       return {
         ...state,
@@ -67,6 +72,7 @@ const communityReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPost: action.payload.post,
+        currentTopic: action.payload.topic,
       };
     default:
       return state;

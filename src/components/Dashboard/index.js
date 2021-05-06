@@ -27,13 +27,18 @@ const Dashboard = () => {
         <FeedbackMsg message={message.content} severity={message.type} />
       )}
       <Grow in>
-        <Grid container spacing={2} className={classes.dashboardContainer}>
+        <Grid
+          container
+          spacing={2}
+          className={classes.dashboardContainer}
+          justify="center"
+        >
           <Grid item md={6} xs={12}>
             <QuizSelect classes={classes} />
           </Grid>
-          <Grid item md={6} xs={12}>
+          {/* <Grid item md={6} xs={12}>
             <History classes={classes} />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grow>
     </>

@@ -1,9 +1,10 @@
-import { Typography, Paper, Avatar, Divider } from "@material-ui/core";
+import { Typography, Paper, Avatar } from "@material-ui/core";
 
-const PostHead = ({ classes, data, color, isPost }) => {
-  const style = isPost
-    ? { borderLeft: `10px solid ${color}` }
-    : { borderTop: `2px solid ${color}` };
+import HelpIcon from "@material-ui/icons/Help";
+import ResultQuestion from "components/Quiz/QuizResult/ResultQuestion";
+
+const PostHead = ({ classes, data, color }) => {
+  const style = { borderTop: `5px solid ${color}` };
 
   return (
     <Paper className={classes.postHead} style={style}>
@@ -24,8 +25,16 @@ const PostHead = ({ classes, data, color, isPost }) => {
           </div>
         </div>
       </div>
-      <Divider />
+      {data.questionContent && (
+        <ResultQuestion
+          questionNumber={data.questionContent.questionNumber}
+          color={color}
+          data={data.questionContent}
+          isForCommunityPost
+        />
+      )}
       <Typography variant="body1" className={classes.postContent}>
+        <HelpIcon style={{ color: color }} />
         {data.content}
       </Typography>
     </Paper>

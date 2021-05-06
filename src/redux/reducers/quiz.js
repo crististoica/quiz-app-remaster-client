@@ -20,6 +20,7 @@ const initialState = {
     date: 0,
     color: "",
   },
+  topic: {},
   time: {},
   isLoading: false,
 };
@@ -57,6 +58,7 @@ const quizReducer = (state = initialState, action) => {
         ...state,
         time: action.payload.time,
         result: action.payload.result,
+        topic: action.payload.topic,
       };
     case types.RESET_QUIZ_SETTINGS:
       return {
@@ -73,7 +75,7 @@ const quizReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     default:
-      return initialState;
+      return state;
   }
 };
 

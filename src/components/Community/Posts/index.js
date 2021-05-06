@@ -7,6 +7,7 @@ import { getTopic } from "redux/actions/community";
 import Loading from "Routes/Loading";
 import Header from "./Header";
 import PostCard from "./PostCard";
+import NotFound from "components/Helpers/NotFound";
 
 import useStyles from "../styles";
 
@@ -32,7 +33,7 @@ const Posts = () => {
   }
 
   if (!community.currentTopic) {
-    return <h1>404 Not Found.</h1>;
+    return <NotFound />;
   }
 
   return (

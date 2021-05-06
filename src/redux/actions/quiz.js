@@ -57,7 +57,7 @@ export const verifyQuiz = (progress, time) => async (dispatch) => {
 
     dispatch({
       type: types.VERIFY_QUIZ,
-      payload: { result: data.result, time },
+      payload: { result: data.result, time, topic: data.topic },
     });
 
     dispatch({ type: types.LOADING_DONE });

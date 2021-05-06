@@ -153,6 +153,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   postContent: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(2),
+    borderTop: "1px solid lightgray",
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(3),
+  },
+  replyContent: {
     padding: theme.spacing(2),
   },
   noReplies: {
