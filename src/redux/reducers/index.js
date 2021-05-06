@@ -5,11 +5,11 @@ import quizReducer from "./quiz";
 import communityReducer from "./community";
 import adminReducer from "./admin";
 
-const allReducers = combineReducers({
+const rootReducer = combineReducers({
   auth: authReducer,
   quiz: quizReducer,
   community: communityReducer,
   admin: adminReducer,
 });
 
-export default allReducers;
+export default rootReducer;

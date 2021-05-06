@@ -76,18 +76,24 @@ const HamburgerMenu = ({ classes, list }) => {
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
-                    {list.map(({ path, label, icon: Icon }) => (
-                      <MenuItem key={path}>
-                        <NavLink
-                          key={path}
-                          to={path}
-                          className={classes.navlink}
-                        >
-                          <Icon />
-                          <p>{label}</p>
-                        </NavLink>
-                      </MenuItem>
-                    ))}
+                    {list.map(({ path, label, icon: Icon, adminOnly }) => {
+                      if (adminOnly) {
+                        return null;
+                      }
+                      return (
+                        <MenuItem key={path}>
+                          <NavLink
+                            key={path}
+                            to={path}
+                            className={classes.navlink}
+                            onClick={handleClose}
+                          >
+                            <Icon />
+                            <p>{label}</p>
+                          </NavLink>
+                        </MenuItem>
+                      );
+                    })}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

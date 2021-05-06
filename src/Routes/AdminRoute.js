@@ -2,7 +2,7 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "./Loading";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({ component: Component, ...rest }) => {
   const userData = useSelector((state) => state.auth);
 
   if (userData.isLoading) {
@@ -13,13 +13,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (userData.isLoggedIn) {
+        if (userData.isLoggedIn && userData.data.isAdmin) {
           return <Component {...rest} {...props} />;
         } else {
           return (
             <Redirect
               to={{
-                pathname: "/auth",
+                pathname: "/",
                 state: {
                   from: props.location,
                 },
@@ -32,4 +32,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default AdminRoute;

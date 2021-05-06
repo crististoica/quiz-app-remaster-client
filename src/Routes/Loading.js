@@ -4,6 +4,7 @@ import { LinearProgress, Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    marginTop: theme.spacing(6),
     "& > * + *": {
       marginTop: theme.spacing(2),
     },
@@ -15,7 +16,7 @@ export default function LinearIndeterminate() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" color="secondary">
+      <Typography variant="h4" color="secondary" align="center">
         Loading...
       </Typography>
       <LinearProgress color="secondary" />

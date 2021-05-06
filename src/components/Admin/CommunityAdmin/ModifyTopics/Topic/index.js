@@ -19,7 +19,6 @@ const Topic = ({ classes, topic }) => {
   const removeMsgNote = topic.isForQuiz
     ? "If you remove this topic, the corresponding quiz will also be removed."
     : "";
-
   const handleTopicRemove = () => {
     dispatch(removeTopic(topic._id));
   };
@@ -50,7 +49,7 @@ const Topic = ({ classes, topic }) => {
           setOpen={setOpenConfirmToggleLock}
           message={`Are you sure you want to ${toggleText} this topic ?`}
           confirmAction={handleTopicLockToggle}
-          note="Post creations are blocked in a locked topic."
+          note="Post creation is blocked in a locked topic."
         />
       )}
       <Grid item xs={12}>
@@ -76,7 +75,7 @@ const Topic = ({ classes, topic }) => {
               title={topic.name}
               color={topic.color}
               imgSrc={`${process.env.REACT_APP_API_URL}/${topic.img}`}
-              totalPosts={topic.posts.length}
+              totalPosts={topic.totalPosts}
             />
           </Grid>
         </Grid>

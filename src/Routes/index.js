@@ -5,9 +5,12 @@ import { useSelector } from "react-redux";
 import Loading from "./Loading";
 
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const Dashboard = lazy(() => import("../components/Dashboard"));
 const Community = lazy(() => import("../components/Community"));
+const Posts = lazy(() => import("../components/Community/Posts"));
+const Post = lazy(() => import("../components/Community/Posts/Post"));
 const Auth = lazy(() => import("../components/Auth"));
 const Quiz = lazy(() => import("../components/Quiz"));
 const QuizResult = lazy(() => import("../components/Quiz/QuizResult"));
@@ -25,19 +28,29 @@ const routes = [
     RouteComponent: PrivateRoute,
   },
   {
-    path: "/quiz/:course",
+    path: "/community/:topic",
+    component: Posts,
+    RouteComponent: PrivateRoute,
+  },
+  {
+    path: "/community/:topic/:post",
+    component: Post,
+    RouteComponent: PrivateRoute,
+  },
+  {
+    path: "/quiz/:quizType",
     component: Quiz,
     RouteComponent: PrivateRoute,
   },
   {
-    path: "/quiz/:course/result",
+    path: "/quiz/:quizType/result",
     component: QuizResult,
     RouteComponent: PrivateRoute,
   },
   {
     path: "/admin",
     component: Admin,
-    RouteComponent: PrivateRoute,
+    RouteComponent: AdminRoute,
   },
 ];
 

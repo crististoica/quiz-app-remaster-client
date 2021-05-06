@@ -1,18 +1,17 @@
 import * as types from "../types/quiz";
 import * as api from "../api";
 
-export const getQuiz = (quiz, color) => async (dispatch) => {
+export const getQuiz = (quiz) => async (dispatch) => {
   try {
     dispatch({ type: types.LOADING_START });
 
-    const { data } = await api.getQuiz(quiz.key);
+    const { data } = await api.getQuiz(quiz.quizId);
 
     dispatch({
       type: types.GET_QUIZ,
       payload: {
-        currentQuizColor: color,
+        currentQuizColor: quiz.color,
         quiz: data.quiz,
-        key: data.key,
         quizType: quiz.quizType,
         quizImg: quiz.quizImg,
       },
@@ -31,6 +30,7 @@ export const getQuiz = (quiz, color) => async (dispatch) => {
 
 export const getQuizes = () => async (dispatch) => {
   try {
+    dispatch({ type: types.RESET_QUIZ_SETTINGS });
     const { data } = await api.getQuizes();
 
     dispatch({
@@ -57,7 +57,7 @@ export const verifyQuiz = (progress, time) => async (dispatch) => {
 
     dispatch({
       type: types.VERIFY_QUIZ,
-      payload: { result: data.result, time },
+      payload: { result: data.result, time, topic: data.topic },
     });
 
     dispatch({ type: types.LOADING_DONE });

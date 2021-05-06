@@ -18,7 +18,7 @@ const adminReducer = (state = initialState, action) => {
     case types.CLEAR_ADMIN_MSG:
       return {
         ...state,
-        message: {},
+        message: initialState.message,
       };
     case types.ADMIN_GET_TOPICS:
       return {
@@ -98,7 +98,7 @@ const adminReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     default:
-      return initialState;
+      return state;
   }
 };
 

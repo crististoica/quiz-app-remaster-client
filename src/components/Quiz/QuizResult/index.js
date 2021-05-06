@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -6,14 +6,32 @@ import { useHistory } from "react-router-dom";
 import ResultQuestion from "./ResultQuestion";
 import ResultInfo from "./ResultInfo";
 import Loading from "Routes/Loading";
+import CreateQuizPost from "./CreateQuizPost";
+
 import useStyles from "../styles";
 
 const QuizResult = ({ historyResult }) => {
+  const [communityQuestion, setCommunityQuestion] = useState({});
+  const [openAddPost, setOpenAddPost] = useState(false);
+  const [scrollPos, setScrollPos] = useState(null);
+
   const quiz = useSelector((state) => historyResult || state.quiz);
+  const { isLocked } = useSelector((state) => state.quiz.topic);
   const history = useHistory();
   const classes = useStyles();
-  const entries = quiz.result.entries; // { BD: { ... }, POO: { ... } ....}
   let questionNumber = 1;
+
+  const handleCommunityPost = (data) => {
+    setCommunityQuestion(data);
+    setOpenAddPost(true);
+    setScrollPos(window.pageYOffset);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleClose = () => {
+    setOpenAddPost(false);
+    window.scrollTo({ top: scrollPos, behavior: "smooth" });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,7 +44,7 @@ const QuizResult = ({ historyResult }) => {
   }, [history]);
 
   useEffect(() => {
-    if (Object.keys(quiz.result.entries).length === 0 && !quiz.isLoading) {
+    if (quiz.result.data.length === 0 && !quiz.isLoading) {
       history.push("/dashboard");
     }
   }, [quiz, history]);
@@ -36,32 +54,40 @@ const QuizResult = ({ historyResult }) => {
   }
 
   return (
-    <Grid
-      container
-      spacing={2}
-      justify="center"
-      className={classes.quizContainer}
-    >
-      <Grid item xs={12}>
-        <ResultInfo infos={quiz.result} classes={classes} />
-      </Grid>
-
-      {Object.keys(entries).map((key) => {
-        return entries[key].data.map((entry) => {
+    <>
+      <Grid
+        container
+        spacing={2}
+        justify="center"
+        className={classes.quizContainer}
+      >
+        <Grid item xs={12}>
+          <ResultInfo infos={quiz.result} classes={classes} />
+        </Grid>
+        {openAddPost && (
+          <CreateQuizPost
+            classes={classes}
+            color={quiz.currentQuizSettings.color}
+            handleClose={handleClose}
+            communityQuestion={communityQuestion}
+          />
+        )}
+        {quiz.result.data.map((entry) => {
           return (
-            <Grid item xs={12} key={entry.questionNumber + entry.index}>
+            <Grid item xs={12} key={entry._id}>
               <ResultQuestion
                 classes={classes}
                 questionNumber={questionNumber++}
                 color={quiz.currentQuizSettings.color}
                 data={entry}
-                entryKey={key}
+                handleCommunityPost={handleCommunityPost}
+                isLocked={isLocked}
               />
             </Grid>
           );
-        });
-      })}
-    </Grid>
+        })}
+      </Grid>
+    </>
   );
 };
 

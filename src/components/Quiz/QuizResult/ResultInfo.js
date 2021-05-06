@@ -8,10 +8,7 @@ const ResultInfo = ({ classes, infos }) => {
   const quizImg = useSelector(
     (state) => state.quiz.currentQuizSettings.quizImg
   );
-  const totalScore =
-    Object.keys(infos.entries).reduce((acc, entry) => {
-      return acc + infos.entries[entry].score;
-    }, 0) || 0;
+  const totalScore = infos.score;
 
   return (
     <Grid item xs={12}>

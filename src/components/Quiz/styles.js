@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   questionText: {
+    width: "100%",
     fontSize: "1.3em",
+    fontWeight: "bold",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   questionIndex: {
     marginRight: theme.spacing(2),
@@ -108,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   resultActions: {
-    width: 140,
+    width: 100,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -121,6 +126,27 @@ const useStyles = makeStyles((theme) => ({
       borderTop: "2px solid",
       marginTop: theme.spacing(1),
     },
+  },
+  createQuizPostContainer: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  quizPostAddHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    "& > div": {
+      display: "flex",
+      alignItems: "center",
+    },
+  },
+  createQuizPostContent: {
+    width: "97.5%",
+    height: "20ch",
+    resize: "none",
+    padding: theme.spacing(2),
   },
 }));
 

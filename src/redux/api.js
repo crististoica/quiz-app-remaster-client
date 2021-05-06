@@ -20,7 +20,16 @@ export const getQuizes = () => API.get("/quiz/get-quizes");
 export const verifyQuiz = (progress) => API.post("/quiz/verify-quiz", progress);
 
 // community
-export const getTopics = () => API.get("/topics/get-topics");
+export const getTopics = () => API.get("/community/get-topics");
+export const getTopic = (slug) => API.get(`/community/get-topic/${slug}`);
+export const getOnePost = (topicSlug, postSlug) =>
+  API.get(`/community/get-one-post/${topicSlug}/${postSlug}`);
+export const createNormalPost = (postInfos) =>
+  API.post("/community/create-normal-post", postInfos);
+export const createQuizPost = (postInfos) =>
+  API.post("/community/create-quiz-post", postInfos);
+export const createReply = (replyInfos, slug) =>
+  API.post(`/community/create-reply/${slug}`, replyInfos);
 
 // admin
 export const createTopic = (topicInfos) =>

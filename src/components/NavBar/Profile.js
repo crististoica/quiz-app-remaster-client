@@ -27,13 +27,16 @@ const Profile = ({ classes, userData }) => {
 
   return (
     <div className={classes.iconWText}>
-      <Typography variant="body1">{`${userData.data.firstName} ${userData.data.lastName}`}</Typography>
+      <Typography variant="body1">{userData.firstName}</Typography>
       <IconButton
         aria-controls="profile-menu"
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Avatar alt={userData.data.firstName} />
+        <Avatar
+          src={`${process.env.REACT_APP_API_URL}/${userData.profileImg}`}
+          alt={userData.firstName}
+        />
       </IconButton>
       <Menu
         id="profile-menu"
