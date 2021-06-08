@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
+
 import LockIcon from "@material-ui/icons/Lock";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 import Input from "./Input";
 import useStyles from "./styles";
@@ -21,6 +23,10 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { isLoading } = useSelector(
+    (state) => state.auth,
+    (prev, curr) => prev.isLoading === curr.isLoading
+  );
 
   const switchMode = () => {
     setFormInfo(initialState);
@@ -35,12 +41,10 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSignUp) {
-      dispatch(signup(formInfo));
-    } else {
-      dispatch(signin(formInfo));
-    }
+    dispatch(signin(formInfo, "signin"));
   };
+
+  const handleGuest = () => dispatch(signin("", "guest-signin"));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,23 +55,7 @@ const Auth = () => {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            {isSignUp && (
-              <>
-                <Input
-                  name="firstName"
-                  label="First Name"
-                  handleChange={handleChange}
-                  autoFocus
-                  half
-                />
-                <Input
-                  name="lastName"
-                  label="Last Name"
-                  handleChange={handleChange}
-                  half
-                />
-              </>
-            )}
+            {isSignUp && <></>}
             <Input
               name="email"
               label="Email"
@@ -81,32 +69,28 @@ const Auth = () => {
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
             />
-            {isSignUp && (
-              <Input
-                name="confirmPassword"
-                label="Repeat Password"
-                handleChange={handleChange}
-                type="password"
-              />
-            )}
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={isLoading}
             >
-              {isSignUp ? "Sign Up" : "Sign In"}
+              Sign In
             </Button>
-          </Grid>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Button onClick={switchMode}>
-                {isSignUp
-                  ? "Already have an account? Sign in"
-                  : "Don't have an account? Sign Up"}
-              </Button>
-            </Grid>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              disabled={isLoading}
+              startIcon={<AccountBoxIcon />}
+              onClick={handleGuest}
+            >
+              Sign In With a Test Account
+            </Button>
           </Grid>
         </form>
       </Paper>

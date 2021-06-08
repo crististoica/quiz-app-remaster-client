@@ -61,7 +61,17 @@ const Quiz = () => {
       e.returnValue = "";
     };
 
-    return () => (window.onbeforeunload = null);
+    const onBackButtonEvent = (e) => {
+      e.preventDefault();
+      console.log("BACK BUTTON");
+    };
+
+    window.addEventListener("popstate", onBackButtonEvent);
+
+    return () => {
+      window.onbeforeunload = null;
+      window.removeEventListener("popstate", onBackButtonEvent);
+    };
   }, []);
 
   if (quiz.isLoading) {

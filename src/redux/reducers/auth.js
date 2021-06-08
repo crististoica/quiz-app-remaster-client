@@ -12,6 +12,12 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.LOADING: {
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    }
     case types.CLEAR_USER_MSG:
       return {
         ...state,
@@ -21,7 +27,10 @@ const authReducer = (state = initialState, action) => {
       return {
         ...initialState,
         isLoading: false,
-        message: action.payload.message,
+        message: {
+          content: action.payload.message,
+          type: "error",
+        },
       };
     case types.SIGN_UP:
       localStorage.setItem("token", action.payload.token);

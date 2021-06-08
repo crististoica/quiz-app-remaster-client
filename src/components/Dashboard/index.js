@@ -3,7 +3,6 @@ import { Grid, Grow } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
 import QuizSelect from "./QuizSelect";
-import History from "./History";
 import FeedbackMsg from "components/Helpers/FeedbackMsg";
 
 import { getQuizes } from "redux/actions/quiz";

@@ -10,11 +10,7 @@ export const getTopics = () => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }
@@ -40,11 +36,7 @@ export const getTopic = (url, currentTopic) => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }
@@ -70,11 +62,7 @@ export const createNormalPost = (postInfos) => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }
@@ -99,11 +87,7 @@ export const createQuizPost = (postInfos) => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }
@@ -125,11 +109,7 @@ export const getOnePost = (topicSlug, postSlug) => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }
@@ -156,11 +136,7 @@ export const createReply = (replyInfos, slug) => async (dispatch) => {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
-        message: {
-          content:
-            error.response?.data.message.content || "Server must be off.",
-          type: "error",
-        },
+        message: error.response?.data.message || "Server must be off.",
       },
     });
   }

@@ -11,7 +11,7 @@ API.interceptors.request.use((req) => {
 });
 // auth
 export const signup = (formInfo) => API.post("/user/signup", formInfo);
-export const signin = (formInfo) => API.post("/user/signin", formInfo);
+export const signin = (formInfo, path) => API.post(`/user/${path}`, formInfo);
 export const checkToken = () => API.get("/user/check-token");
 
 // quiz
@@ -46,3 +46,6 @@ export const updateTopic = (topicId, topicInfos) =>
 
 export const createQuiz = (quizInfos) =>
   API.post("/admin/quizes/create-quiz", quizInfos);
+
+export const removeAllGuestRelated = () =>
+  API.get("/admin/remove-guest-related");

@@ -33,7 +33,7 @@ const Links = ({ classes }) => {
 
   const returnComponent =
     width < 640 ? (
-      <HamburgerMenu classes={classes} list={list} />
+      <HamburgerMenu classes={classes} list={list} isAdmin={isAdmin}/>
     ) : (
       list.map(({ path, label, icon: Icon, adminOnly }) => {
         if (adminOnly && isAdmin) {

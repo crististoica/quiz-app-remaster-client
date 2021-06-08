@@ -21,7 +21,10 @@ const communityReducer = (state = initialState, action) => {
     case types.COMMUNITY_ERROR:
       return {
         ...state,
-        message: action.payload.message,
+        message: {
+          content: action.payload.message,
+          type: "error",
+        },
       };
     case types.CLEAR_COMMUNITY_MSG:
       return {
