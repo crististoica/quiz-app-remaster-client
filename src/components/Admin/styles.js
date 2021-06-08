@@ -53,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  actionDescription: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(2),
+  },
 }));
 
 export default useStyles;

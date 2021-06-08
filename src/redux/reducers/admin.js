@@ -95,8 +95,20 @@ const adminReducer = (state = initialState, action) => {
     case types.ADMIN_MSG:
       return {
         ...state,
-        message: action.payload.message,
+        message: {
+          content: action.payload.message,
+          type: "error",
+        },
       };
+    case types.REMOVE_GUEST_RELATED: {
+      return {
+        ...state,
+        message: {
+          content: action.payload,
+          type: "success",
+        },
+      };
+    }
     default:
       return state;
   }

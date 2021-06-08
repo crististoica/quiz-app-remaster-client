@@ -6,5 +6,6 @@ export const UPDATE_TOPIC = "UPDATE_TOPIC";
 export const CLEAR_ADMIN_MSG = "CLEAR_ADMIN_MSG";
 export const ADMIN_MSG = "ADMIN_MSG";
 export const ADMIN_GET_TOPICS = "ADMIN_GET_TOPICS";
+export const REMOVE_GUEST_RELATED = "REMOVE_GUEST_RELATED";
 // admin - dashboard
 export const CREATE_QUIZ = "CREATE_QUIZ";

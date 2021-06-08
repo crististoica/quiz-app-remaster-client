@@ -153,3 +153,20 @@ export const createQuiz = (quizInfos) => async (dispatch) => {
     });
   }
 };
+
+export const removeAllGuestRelated = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.CLEAR_ADMIN_MSG });
+
+    const { data } = await api.removeAllGuestRelated();
+
+    dispatch({ type: types.REMOVE_GUEST_RELATED, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: types.ADMIN_MSG,
+      payload: {
+        message: error.response?.data.message || "Server must be off.",
+      },
+    });
+  }
+};

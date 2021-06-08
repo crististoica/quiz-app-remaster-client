@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
-const HamburgerMenu = ({ classes, list }) => {
+const HamburgerMenu = ({ classes, list, isAdmin }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -77,7 +77,21 @@ const HamburgerMenu = ({ classes, list }) => {
                     onKeyDown={handleListKeyDown}
                   >
                     {list.map(({ path, label, icon: Icon, adminOnly }) => {
-                      if (adminOnly) {
+                      if (adminOnly && isAdmin) {
+                        return (
+                          <MenuItem key={path}>
+                            <NavLink
+                              key={path}
+                              to={path}
+                              className={classes.navlink}
+                              onClick={handleClose}
+                            >
+                              <Icon />
+                              <p>{label}</p>
+                            </NavLink>
+                          </MenuItem>
+                        );
+                      } else if (adminOnly) {
                         return null;
                       }
                       return (

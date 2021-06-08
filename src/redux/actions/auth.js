@@ -25,11 +25,12 @@ export const signup = (formInfo) => async (dispatch) => {
   }
 };
 
-export const signin = (formInfo) => async (dispatch) => {
+export const signin = (formInfo, path) => async (dispatch) => {
   try {
     dispatch({ type: types.CLEAR_USER_MSG });
+    dispatch({ type: types.LOADING, payload: true });
 
-    const { data } = await api.signin(formInfo);
+    const { data } = await api.signin(formInfo, path);
 
     dispatch({
       type: types.SIGN_IN,
@@ -38,6 +39,8 @@ export const signin = (formInfo) => async (dispatch) => {
         token: data.token,
       },
     });
+
+    dispatch({ type: types.LOADING, payload: false });
   } catch (error) {
     dispatch({
       type: types.USER_ERROR,

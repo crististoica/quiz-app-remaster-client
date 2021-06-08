@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { createNormalPost } from "redux/actions/community";
+import { COMMUNITY_ERROR, CLEAR_COMMUNITY_MSG } from "redux/types/community";
 
 const Form = ({ classes, icon: Icon }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,19 @@ const Form = ({ classes, icon: Icon }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch({ type: CLEAR_COMMUNITY_MSG });
+    if (postInfos.title.length < 4) {
+      return dispatch({
+        type: COMMUNITY_ERROR,
+        payload: { message: "SOME TEST MESSAGE FROM CLIENT SIDE ABOUT TITLE" },
+      });
+    }
+    if (postInfos.content.length < 10) {
+      return dispatch({
+        type: COMMUNITY_ERROR,
+        payload: { message: "SOME TEST MESSAGE FROM CLIENT SIDE" },
+      });
+    }
     dispatch(createNormalPost(postInfos));
   };
 
