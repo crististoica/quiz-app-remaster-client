@@ -15,7 +15,7 @@ const Form = ({ classes, icon: Icon, setOpenModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createReply(replyInfos, post));
-    setOpenModal();
+    setOpenModal(false);
   };
 
   return (
