@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { createReply } from "redux/actions/community";
 
-const Form = ({ classes, icon: Icon }) => {
+const Form = ({ classes, icon: Icon, setOpenModal }) => {
   const [replyInfos, setReplyInfos] = useState({
     content: "",
   });
@@ -15,6 +15,7 @@ const Form = ({ classes, icon: Icon }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createReply(replyInfos, post));
+    setOpenModal();
   };
 
   return (

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Grid } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Question from "./Question";
 import QuizInfo from "./QuizInfo";
 import Loading from "Routes/Loading";
 
 import { verifyQuiz } from "redux/actions/quiz";
+import { getTopic } from "redux/actions/community";
 
 import useStyles from "./styles";
 
@@ -20,9 +21,11 @@ const Quiz = () => {
     secondsElapsed: 0,
   });
   const { quiz } = useSelector((state) => state);
+  const { currentTopic } = useSelector((state) => state.community);
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
+  const { quizType: topic } = useParams();
   let questionNumber = 1;
 
   const handleSubmit = async () => {
@@ -57,21 +60,20 @@ const Quiz = () => {
   useEffect(() => {
     window.onbeforeunload = (e) => {
       e.preventDefault();
-      // chrome
+      console.log("BACK BUTTON");
       e.returnValue = "";
     };
 
-    const onBackButtonEvent = (e) => {
-      e.preventDefault();
-      console.log("BACK BUTTON");
-    };
-
-    window.addEventListener("popstate", onBackButtonEvent);
-
     return () => {
       window.onbeforeunload = null;
-      window.removeEventListener("popstate", onBackButtonEvent);
     };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (currentTopic.slug === topic) {
+      return dispatch(getTopic(topic, currentTopic));
+    }
+    return dispatch(getTopic(topic));
   }, []);
 
   if (quiz.isLoading) {

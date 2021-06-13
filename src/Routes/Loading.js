@@ -16,10 +16,10 @@ export default function LinearIndeterminate() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" color="secondary" align="center">
+      <Typography variant="h4" color="primary" align="center">
         Loading...
       </Typography>
-      <LinearProgress color="secondary" />
+      <LinearProgress color="primary" />
     </div>
   );
 }

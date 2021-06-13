@@ -7,7 +7,7 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 import Input from "./Input";
 import useStyles from "./styles";
-import { signup, signin } from "../../redux/actions/auth";
+import { signin } from "../../redux/actions/auth";
 
 const initialState = {
   firstName: "",
@@ -18,7 +18,6 @@ const initialState = {
 };
 
 const Auth = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
   const [formInfo, setFormInfo] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
@@ -27,12 +26,6 @@ const Auth = () => {
     (state) => state.auth,
     (prev, curr) => prev.isLoading === curr.isLoading
   );
-
-  const switchMode = () => {
-    setFormInfo(initialState);
-    setIsSignUp((prevState) => !prevState);
-    setShowPassword(false);
-  };
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleChange = (e) => {
@@ -51,11 +44,10 @@ const Auth = () => {
       <Paper className={classes.paper} elevation={3}>
         <LockIcon className={classes.avatar} />
         <Typography component="h1" variant="h5">
-          {isSignUp ? "Sign Up" : "Sign In"}
+          Sign In
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            {isSignUp && <></>}
             <Input
               name="email"
               label="Email"
