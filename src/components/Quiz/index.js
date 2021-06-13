@@ -74,6 +74,7 @@ const Quiz = () => {
       return dispatch(getTopic(topic, currentTopic));
     }
     return dispatch(getTopic(topic));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (quiz.isLoading) {
