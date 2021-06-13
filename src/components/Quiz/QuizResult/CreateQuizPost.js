@@ -24,6 +24,7 @@ const CreateQuizPost = ({ classes, color, handleClose, communityQuestion }) => {
         content: quizPostContent,
       })
     );
+    handleClose();
   };
 
   return (

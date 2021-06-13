@@ -6,6 +6,7 @@ import QuizSelect from "./QuizSelect";
 import FeedbackMsg from "components/Helpers/FeedbackMsg";
 
 import { getQuizes } from "redux/actions/quiz";
+import { RESET_QUIZ_SETTINGS } from "redux/types/quiz";
 
 import useStyles from "./styles";
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const { dashboardCards, message } = useSelector((state) => state.quiz);
 
   useEffect(() => {
+    dispatch({ type: RESET_QUIZ_SETTINGS });
     if (!dashboardCards.length) {
       dispatch(getQuizes());
     }

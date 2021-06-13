@@ -126,7 +126,7 @@ export const createReply = (replyInfos, slug) => async (dispatch) => {
       payload: {
         reply: data.reply,
         message: {
-          content: data.message.content,
+          content: data.message,
           type: "success",
         },
       },

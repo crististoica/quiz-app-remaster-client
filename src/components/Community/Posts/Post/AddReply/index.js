@@ -16,7 +16,11 @@ const AddReply = ({ classes }) => {
     <>
       {openModal && (
         <ModalComponent open={openModal} setOpen={setOpenModal}>
-          <Form classes={classes} icon={ReplyIcon} />
+          <Form
+            classes={classes}
+            icon={ReplyIcon}
+            setOpenModal={setOpenModal}
+          />
         </ModalComponent>
       )}
       <Button
