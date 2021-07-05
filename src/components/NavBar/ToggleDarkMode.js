@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Switch } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
@@ -9,8 +9,9 @@ const ToggleDarkMode = ({ setDarkMode, darkMode, classes }) => {
     light: !darkMode,
     dark: darkMode,
   });
+  const tooltipMsg = darkMode ? "Light Mode" : "Dark Mode";
 
-  const handleSwitchChange = (e) => {
+  const handleColorModeChange = (e) => {
     setSwitchState({ ...switchState, [e.target.name]: e.target.checked });
     setDarkMode(!darkMode);
     localStorage.setItem("darkMode", !darkMode);
@@ -18,17 +19,18 @@ const ToggleDarkMode = ({ setDarkMode, darkMode, classes }) => {
 
   return (
     <div className={classes.iconWText}>
-      <Switch
-        checked={switchState.light}
-        onChange={handleSwitchChange}
-        name="light"
-        inputProps={{ "aria-label": "secondary checkbox" }}
-        color="primary"
-      />
-      {darkMode ? (
-        <Brightness3Icon color="primary" />
+      {!darkMode ? (
+        <Tooltip title={tooltipMsg}>
+          <IconButton onClick={handleColorModeChange}>
+            <Brightness3Icon color="primary" />
+          </IconButton>
+        </Tooltip>
       ) : (
-        <Brightness7Icon color="primary" />
+        <Tooltip title={tooltipMsg}>
+          <IconButton onClick={handleColorModeChange}>
+            <Brightness7Icon color="primary" />
+          </IconButton>
+        </Tooltip>
       )}
     </div>
   );
