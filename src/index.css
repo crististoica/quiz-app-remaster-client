@@ -21,6 +21,11 @@ body {
   min-width: 100px;
 }
 
+.fs-sm {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 @media (max-width: 640px) {
   body,
   .main {

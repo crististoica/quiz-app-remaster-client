@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
 import ReplyIcon from "@material-ui/icons/Reply";
 
@@ -7,6 +8,7 @@ import ModalComponent from "components/Helpers/ModalComponent";
 
 const AddReply = ({ classes }) => {
   const [openModal, setOpenModal] = useState(false);
+  const { isClosed } = useSelector((state) => state.community.currentPost);
 
   const handleOpen = () => {
     setOpenModal(true);
@@ -29,6 +31,7 @@ const AddReply = ({ classes }) => {
         fullWidth
         startIcon={<ReplyIcon />}
         onClick={handleOpen}
+        disabled={isClosed}
       >
         Reply
       </Button>

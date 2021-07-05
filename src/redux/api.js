@@ -30,6 +30,8 @@ export const createQuizPost = (postInfos) =>
   API.post("/community/create-quiz-post", postInfos);
 export const createReply = (replyInfos, slug) =>
   API.post(`/community/create-reply/${slug}`, replyInfos);
+export const setPostStatus = (topicSlug, postSlug) =>
+  API.patch(`/community/set-post-status/${topicSlug}/${postSlug}`);
 
 // admin
 export const createTopic = (topicInfos) =>

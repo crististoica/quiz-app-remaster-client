@@ -55,6 +55,7 @@ const Posts = () => {
               title={post.title}
               author={post.author}
               createdOn={post.createdOn}
+              isClosed={post.isClosed}
               color={community.currentTopic.color}
               slug={post.slug}
             />

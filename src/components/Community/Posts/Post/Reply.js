@@ -6,19 +6,21 @@ const Reply = ({ classes, data, color }) => {
   return (
     <Paper className={classes.postHead} style={style}>
       <div className={classes.postLeft}>
-        <Avatar
-          src={`${process.env.REACT_APP_API_URL}/${data.author.profileImg}`}
-          alt={data.author.name}
-        />
-        <div className={classes.postInfo}>
-          <Typography variant="h5" className={classes.postTitle}>
-            {data.title}
-          </Typography>
-          <div>
-            <Typography variant="subtitle2">{data.author.name}</Typography>
-            <Typography variant="subtitle2" className={classes.postDate}>
-              {new Date(data.createdOn).toDateString()}
+        <div>
+          <Avatar
+            src={`${process.env.REACT_APP_API_URL}/${data.author.profileImg}`}
+            alt={data.author.name}
+          />
+          <div className={classes.postInfo}>
+            <Typography variant="h5" className={classes.postTitle}>
+              {data.title}
             </Typography>
+            <div>
+              <Typography variant="subtitle2">{data.author.name}</Typography>
+              <Typography variant="subtitle2" className={classes.postDate}>
+                {new Date(data.createdOn).toDateString()}
+              </Typography>
+            </div>
           </div>
         </div>
       </div>

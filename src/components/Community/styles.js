@@ -121,19 +121,29 @@ const useStyles = makeStyles((theme) => ({
   postLeft: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between",
     gap: theme.spacing(4),
     padding: theme.spacing(2),
+    [theme.breakpoints.down("xs")]: {
+      gap: theme.spacing(1),
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
+    "& > div": {
+      display: "flex",
+      alignItems: "center",
+      gap: theme.spacing(2),
+    },
   },
   postInfo: {
     "& > div": {
       display: "flex",
       alignItems: "center",
       gap: theme.spacing(2),
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("xs")]: {
         flexDirection: "column",
-        gap: theme.spacing(0),
+        gap: 0,
         alignItems: "flex-start",
-        marginTop: theme.spacing(1),
       },
     },
   },

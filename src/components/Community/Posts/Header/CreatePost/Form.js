@@ -27,7 +27,7 @@ const Form = ({ classes, icon: Icon }) => {
         payload: { message: "SOME TEST MESSAGE FROM CLIENT SIDE ABOUT TITLE" },
       });
     }
-    if (postInfos.content.length < 10) {
+    if (postInfos.content.length < 4) {
       return dispatch({
         type: COMMUNITY_ERROR,
         payload: { message: "SOME TEST MESSAGE FROM CLIENT SIDE" },

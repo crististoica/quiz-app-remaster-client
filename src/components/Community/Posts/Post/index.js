@@ -45,6 +45,8 @@ const Post = () => {
             classes={classes}
             data={currentPost}
             color={currentTopic.color}
+            postAuthorId={currentPost.author._id}
+            isClosed={currentPost.isClosed}
           />
         </Grid>
         <Grid item xs={12}>

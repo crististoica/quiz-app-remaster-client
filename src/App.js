@@ -30,9 +30,6 @@ function App() {
         main: "#3DA35D",
         contrastText: "#ffffff",
       },
-      grey: {
-        800: "#ff4242",
-      },
       contrastThreshold: 3,
       tonalOffset: 0.2,
     },

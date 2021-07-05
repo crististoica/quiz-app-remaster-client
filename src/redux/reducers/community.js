@@ -77,6 +77,12 @@ const communityReducer = (state = initialState, action) => {
         currentPost: action.payload.post,
         currentTopic: action.payload.topic,
       };
+    case types.SET_POST_STATUS:
+      return {
+        ...state,
+        currentPost: action.payload.post,
+        message: action.payload.message,
+      };
     default:
       return state;
   }

@@ -9,3 +9,4 @@ export const CREATE_QUIZ_POST = "CREATE_QUIZ_POST";
 export const GET_ONE_POST = "GET_ONE_POST";
 export const CREATE_REPLY = "CREATE_REPLY";
 export const CLEAR_COMMUNITY = "CLEAR_COMMUNITY";
+export const SET_POST_STATUS = "SET_POST_STATUS";

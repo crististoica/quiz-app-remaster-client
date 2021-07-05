@@ -132,7 +132,32 @@ export const createReply = (replyInfos, slug) => async (dispatch) => {
       },
     });
   } catch (error) {
-    console.log(error.response);
+    dispatch({
+      type: types.COMMUNITY_ERROR,
+      payload: {
+        message: error.response?.data.message || "Server must be off.",
+      },
+    });
+  }
+};
+
+export const setPostStatus = (topicSlug, postSlug) => async (dispatch) => {
+  try {
+    dispatch({ type: types.CLEAR_COMMUNITY_MSG });
+
+    const { data } = await api.setPostStatus(topicSlug, postSlug);
+
+    dispatch({
+      type: types.SET_POST_STATUS,
+      payload: {
+        post: data.post,
+        message: {
+          content: data.message,
+          type: "success",
+        },
+      },
+    });
+  } catch (error) {
     dispatch({
       type: types.COMMUNITY_ERROR,
       payload: {
